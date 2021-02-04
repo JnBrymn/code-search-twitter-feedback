@@ -1,0 +1,14 @@
+<form method="post">
+{% csrf_token %}
+    <b>MUST</b><br>
+{% for topic in topics %}
+    <input type="checkbox" id="must_{{ topic.short_name }}" name="must_{{ topic.short_name }}" value="true"  {% if topic.short_name in checked %} checked {% else %} '' {% endif %}>
+    <label for="{{ topic.short_name }}">{{ topic.short_name }} ({{ topic.num }})</label>&nbsp;&nbsp;
+{% endfor %}<br><br>
+        <b>MUST NOT</b><br>
+{% for topic in topics %}
+    <input type="checkbox" id="not_{{ topic.short_name }}" name="not_{{ topic.short_name }}" value="true"  {% if topic.short_name in checked %} checked {% else %} '' {% endif %}>
+    <label for="{{ topic.short_name }}">{{ topic.short_name }} ({{ topic.num }})</label>&nbsp;&nbsp;
+{% endfor %}<br><br>
+<input type="submit" value="Submit">
+</form>
