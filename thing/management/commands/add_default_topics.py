@@ -74,7 +74,7 @@ class Command(BaseCommand):
         # Others that I noticed a little late:
         # * more_results_on_page
         # * semantic_search
-        # * People frustrated that links from search results aren't to master but are to a specific hash 
+        # * People frustrated that links from search results aren't to master but are to a specific hash
         ]
 
         for topic in topics:
