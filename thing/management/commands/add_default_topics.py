@@ -25,7 +25,7 @@ class Command(BaseCommand):
             "description": "the ability to filter matches based upon what libraries are used in the repo",
         }, {
             "short_name": "boost_definitions",
-            "description": "definitions are boosted to appear toward the top of search results, maybe even filter out non-definitions",
+            "description": "definitions are boosted to appear toward the top of search results or filtered to include(exclude) defintions",
         }, {
             "short_name": "more_facets",
             "description": "facet by other things: repos, directory",
@@ -34,7 +34,7 @@ class Command(BaseCommand):
             "description": "deduplicate files that have tons of duplicates in global search (example: search GetObjectRequest)",
         }, {
             "short_name": "boost_filenames",
-            "description": "if a filename matches, boost it toward the top",
+            "description": "if a filename matches, boost it toward the top (lots of Java and C# devs want this b/c it corresponds to the definition)",
         }, {
             "short_name": "boost_implementation",
             "description": "business logic should appear above test files, vendored files, config files, etc. - maybe even filter out test files",
@@ -59,7 +59,23 @@ class Command(BaseCommand):
         }, {
             "short_name": "archived",
             "description": "exclude archived repos (possible bug)",
-        }]
+        },
+        # these added late
+        {
+            "short_name": "filter comments",
+            "description": "search exclusively inside or outside of comments",
+        }, {
+            "short_name": "good_idea",
+            "description": "hey, let's do this",
+        }, {
+            "short_name": "scoping",
+            "description": "users want clearer understanding of scope (repo, owner, global)",
+        }
+        # Others that I noticed a little late:
+        # * more_results_on_page
+        # * semantic_search
+        # * People frustrated that links from search results aren't to master but are to a specific hash 
+        ]
 
         for topic in topics:
             try:

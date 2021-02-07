@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classify</title>
+</head>
+<body>
+
+<h1>summary</h1>
+<ul>
+{% for topic in topics %}
+    <li>{{ topic.short_name }} ({{ topic.num }},♡️{{ topic.favs }}, <a href="/list/?must={{ topic.short_name }}">details</a>): {{ topic.description }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>

@@ -1,14 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classify</title>
+</head>
+<body>
+
+<h1>list</h1>
 <form method="post">
 {% csrf_token %}
     <b>MUST</b><br>
 {% for topic in topics %}
-    <input type="checkbox" id="must_{{ topic.short_name }}" name="must_{{ topic.short_name }}" value="true"  {% if topic.short_name in checked %} checked {% else %} '' {% endif %}>
-    <label for="{{ topic.short_name }}">{{ topic.short_name }} ({{ topic.num }})</label>&nbsp;&nbsp;
+    <input type="checkbox" id="must.{{ topic.short_name }}" name="must.{{ topic.short_name }}" value="true"  {% if topic.short_name in musts %} checked {% else %}  {% endif %}>
+    <label for="{{ topic.short_name }}">{{ topic.short_name }}</label>&nbsp;&nbsp;
 {% endfor %}<br><br>
         <b>MUST NOT</b><br>
 {% for topic in topics %}
-    <input type="checkbox" id="not_{{ topic.short_name }}" name="not_{{ topic.short_name }}" value="true"  {% if topic.short_name in checked %} checked {% else %} '' {% endif %}>
-    <label for="{{ topic.short_name }}">{{ topic.short_name }} ({{ topic.num }})</label>&nbsp;&nbsp;
+    <input type="checkbox" id="must_not.{{ topic.short_name }}" name="must_not.{{ topic.short_name }}" value="true"  {% if topic.short_name in must_nots %} checked {% else %}  {% endif %}>
+    <label for="{{ topic.short_name }}">{{ topic.short_name }}</label>&nbsp;&nbsp;
 {% endfor %}<br><br>
+<label for="text"><b>TEXT:</b></label><input type="text" id="text" name="text" value="{{ text }}"><br><br>
 <input type="submit" value="Submit">
-</form>
+</form><br>
+
+<b>Total: {{ num }}</b>
+{% for tweet in tweets %}
+<p>
+    ♡️{{tweet.favorite_count}} (<a href="https://twitter.com/JnBrymn/status/{{tweet.slack_id}}">link</a>, <a href="/classify/{{tweet.slack_id}}">classify</a>) {{tweet.full_text}}<br>
+</p>
+{% endfor %}
+</body>
+</html>
+
