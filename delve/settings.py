@@ -25,8 +25,7 @@ SECRET_KEY = 'u_*9%ocq*d%kxtzgfj6wev*u$l%oa$ie!=ykv$xqh=q1r*i)19'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']  # TODO this is a hack - fix once we have domain name set up
 
 # Application definition
 
