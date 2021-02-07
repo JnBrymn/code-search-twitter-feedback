@@ -23,7 +23,7 @@
 <input type="submit" value="Submit">
 </form><br>
 
-<b>Total: {{ num }}</b>
+<b>Total: {{ num }}; Favs: {{ favs }}</b>
 {% for tweet in tweets %}
 <p>
     ♡️{{tweet.favorite_count}} (<a href="https://twitter.com/JnBrymn/status/{{tweet.slack_id}}">link</a>, <a href="/classify/{{tweet.slack_id}}">classify</a>) {{tweet.full_text}}<br>

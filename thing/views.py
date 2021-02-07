@@ -32,7 +32,7 @@ def classify(request, tweet_id=None):
 
 
 def summary(request):
-    topics = Topic.objects.annotate(num=Count('tweets')).annotate(favs=Sum('tweets__favorite_count')).order_by('-favs')
+    topics = Topic.objects.annotate(num=Count('tweets')).annotate(favs=Sum('tweets__favorite_count')).order_by('-num')
     context = {'topics': topics}
     template = loader.get_template('thing/summary.html')
     return HttpResponse(template.render(context, request))
@@ -65,6 +65,7 @@ def list(request):
         'must_nots': must_nots,
         'text': text,
         'num': tweets.count(),
+        'favs': tweets.aggregate(Sum('favorite_count'))['favorite_count__sum'],
         'topics': topics,
         'tweets': tweets,
     }

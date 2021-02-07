@@ -7,11 +7,29 @@
 <body>
 
 <h1>summary</h1>
+On January 30th <a href="https://twitter.com/JnBrymn/status/1355654689652690953">I sent a tweet</a> asking developers how GitHub's code search experience could be improved. The tweet surprisingly (embarrasingly) went viral. But as a result we have ~500 user responses explaining what our users are looking for in search. I have attempted to categorize the tweets according to the topics below. Note that each topic includes the number of tweets and the number of favorites (♡).
+
+
+<h2>topics</h2>
 <ul>
 {% for topic in topics %}
     <li>{{ topic.short_name }} ({{ topic.num }},♡️{{ topic.favs }}, <a href="/list/?must={{ topic.short_name }}">details</a>): {{ topic.description }}</li>
 {% endfor %}
 </ul>
+
+<h2>takeaways</h2>
+Several patterns emerged:
+<ol>
+    <li>The combination of <code>special_chars</code>, <code>exact_match</code>, and <code>regex</code> easily take the lead for user interest. <code>special_chars</code> and <code>exact_match</code> have heavy overlap (<a href="/list/?must=special_chars,exact_match">details</a>) because many tweets that asked for "exact match" would then provide examples that required merely the ability to match on special characters. But there were <a href="/list/?must=exact_match&must_not=special_chars"><code>exact_match</code> tweets that weren't <code>special_char</code></a>, and there were <a href="/list/?must=special_chars&must_not=exact_match"><code>special_char</code> tweets that weren't <code>exact_match</code></a>.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;<b>commentary:</b> A fix for <code>special_chars</code> is current available but has not been deployed at scale. <code>exact_match</code> will be provided when blackbird is complete. <code>regex</code> will be available in a future phase of blackbird.</li>
+    <li>Many users wanted <code>boost_definitions</code> and <code>boost_implementation</code>. These features would be implemented differently, but the underlying cause is the same. When a user searched for a token, they don't want usages, they likely want the definition first and they definitely don't want to find all the usages in test files. With the way that relevancy currently works, test usages typically show up first (and users notice!). <code>boost_filenames</code> represents a similar problem, especially for Java and C# developers because files are named the same as the class they implement.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;<b>commentary:</b> <code>boost_definitions</code> can be implemented easily if we have access to the tokens defined in each file. <code>boost_implementation</code> requires us to know whether a file is code, configuration, documentation, or tests. <code>boost_filename</code> requires us to improve filename tokenization and then change the query to boost exact matches in this field.</li>
+    <li><code>search_branches</code> was very popular as expected</li>
+    <li><code>deduplicate</code> and <code>forks</code> are overlapping because what many user called "forks" are actally vendored code that is showing up in lots of repos and leading to lots of search results that are identical if the search matches commonly vendored code. <code>forks</code> also had a different meaning for some users because they wanted to search in or exclude forks</li>
+    <li>Many tweets asked for capabilities that are already present (<code>already_exists</code>). This could mean that we don't provide an intuitive experience, or that the capabilities that we think we provide are actually broken.</li>
+</ol>
+
+
 
 </body>
 </html>
